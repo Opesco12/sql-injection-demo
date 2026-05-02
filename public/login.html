@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="/style.css"
+    />
+  </head>
+  <body>
+    <main class="auth-page">
+      <section class="auth-card">
+        <h1>Welcome back</h1>
+        <p class="auth-subtitle">Sign in to continue to your dashboard.</p>
+
+        <form
+          id="product-login-form"
+          class="auth-form"
+        >
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            autocomplete="off"
+          />
+
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autocomplete="off"
+          />
+
+          <button
+            type="submit"
+            class="primary-btn"
+          >
+            Login
+          </button>
+        </form>
+
+        <div
+          id="product-login-message"
+          class="result-message"
+        >
+          <!-- Use demo accounts like <strong>admin/admin123</strong>. -->
+        </div>
+
+        <!-- <div class="auth-links">
+          <a href="/demo">Open SQL Injection Demo Lab</a>
+        </div> -->
+      </section>
+    </main>
+
+    <script src="/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>SQL Injection Demo Lab</title>
+    <link
+      rel="stylesheet"
+      href="/style.css"
+    />
+  </head>
+  <body>
+    <main class="layout demo-layout">
+      <section class="panel panel-left product-login-panel">
+        <div class="auth-card auth-card-embedded">
+          <h1>Sign in</h1>
+          <p class="auth-subtitle"></p>
+          <div
+            class="mode-switch"
+            role="group"
+            aria-label="Mode switch"
+          >
+            <button
+              class="mode-btn active"
+              data-mode="vulnerable"
+              type="button"
+            >
+              Vulnerable Mode
+            </button>
+            <button
+              class="mode-btn"
+              data-mode="protected"
+              type="button"
+            >
+              Protected Mode
+            </button>
+          </div>
+
+          <form
+            id="login-form"
+            class="auth-form"
+          >
+            <label for="username">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              autocomplete="off"
+            />
+
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="text"
+              required
+              autocomplete="off"
+            />
+
+            <button
+              type="submit"
+              class="primary-btn"
+            >
+              Login
+            </button>
+          </form>
+
+          <div class="examples">
+            <p>Quick test inputs</p>
+            <div class="example-buttons">
+              <button
+                type="button"
+                data-username="admin"
+                data-password="admin123"
+              >
+                Correct admin login
+              </button>
+              <button
+                type="button"
+                data-username="admin"
+                data-password="wrongpass"
+              >
+                Wrong password
+              </button>
+              <button
+                type="button"
+                data-username="admin' --"
+                data-password="anything"
+              >
+                SQL injection: admin' --
+              </button>
+              <button
+                type="button"
+                data-username="' OR '1'='1' --"
+                data-password="anything"
+              >
+                SQL injection: ' OR '1'='1' --
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="result-message"
+            class="result-message"
+          ></div>
+
+          <div class="auth-links">
+            <a href="/login">Go to Product Login</a>
+            <a href="/dashboard">Go to Dashboard</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel-right">
+        <div class="debug-header">
+          <h2>SQL / Debug Panel</h2>
+          <span
+            id="mode-badge"
+            class="badge vulnerable"
+            >Vulnerable Mode</span
+          >
+        </div>
+
+        <article class="debug-block">
+          <h3>Users Table</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="debug-block">
+          <h3>Generated SQL Query</h3>
+          <pre
+            id="generated-query"
+            class="code-block"
+          >
+No query yet.</pre
+          >
+        </article>
+
+        <article
+          id="params-block"
+          class="debug-block hidden"
+        >
+          <h3>Query Parameters</h3>
+          <pre
+            id="query-parameters"
+            class="code-block"
+          >
+[]</pre
+          >
+        </article>
+
+        <article class="debug-block">
+          <h3>Query Result</h3>
+          <pre
+            id="query-result"
+            class="code-block"
+          >
+No result yet.</pre
+          >
+        </article>
+
+        <article
+          class="explanation"
+          id="mode-explanation"
+        >
+          <strong>Vulnerable Mode:</strong> Input is inserted directly into the
+          SQL string. Attackers can manipulate query logic.
+        </article>
+      </section>
+    </main>
+
+    <script src="/demo.js"></script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="/style.css"
+    />
+  </head>
+  <body>
+    <main class="dashboard-page">
+      <header class="dashboard-topbar">
+        <div>
+          <h1>Dashboard</h1>
+        </div>
+        <button
+          id="logout-btn"
+          class="ghost-btn"
+          type="button"
+        >
+          Log out
+        </button>
+      </header>
+
+      <section class="">
+        <article class="dash-card">
+          <h2>Signed in user</h2>
+          <p id="welcome-line">Welcome.</p>
+          <pre
+            id="user-json"
+            class="code-light"
+          ></pre>
+        </article>
+      </section>
+    </main>
+
+    <script src="/dashboard.js"></script>
+  </body>
+</html>
