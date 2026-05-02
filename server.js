@@ -19,7 +19,9 @@ if (isVercel) {
   db = {
     allUsers: () => seedUsers,
     findByCredentials: (username, password) =>
-      seedUsers.find((user) => user.username === username && user.password === password) || null,
+      seedUsers.find(
+        (user) => user.username === username && user.password === password,
+      ) || null,
     vulnerableLogin: (username, password) => {
       const generatedQuery = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`;
 
@@ -30,7 +32,9 @@ if (isVercel) {
 
       const commentBypass = username.match(/^([^']+)'\s*--/);
       if (commentBypass) {
-        const matched = seedUsers.find((user) => user.username === commentBypass[1].trim()) || null;
+        const matched =
+          seedUsers.find((user) => user.username === commentBypass[1].trim()) ||
+          null;
         return { generatedQuery, row: matched };
       }
 
@@ -59,7 +63,7 @@ if (isVercel) {
         username TEXT NOT NULL,
         password TEXT NOT NULL,
         role TEXT NOT NULL
-      )`
+      )`,
     );
 
     sqliteDb.get("SELECT COUNT(*) AS count FROM users", (countErr, row) => {
@@ -70,7 +74,7 @@ if (isVercel) {
 
       if (row.count === 0) {
         const seedStatement = sqliteDb.prepare(
-          "INSERT INTO users (username, password, role) VALUES (?, ?, ?)"
+          "INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
         );
 
         seedStatement.run("admin", "admin123", "administrator");
@@ -97,7 +101,7 @@ if (isVercel) {
           (err, rows) => {
             if (err) return reject(err);
             resolve(rows);
-          }
+          },
         );
       }),
     findByCredentials: (username, password) =>
@@ -108,7 +112,7 @@ if (isVercel) {
           (err, row) => {
             if (err) return reject(err);
             resolve(row || null);
-          }
+          },
         );
       }),
     vulnerableLogin: (username, password) =>
@@ -149,7 +153,9 @@ app.get("/api/users", async (req, res) => {
     const users = isVercel ? db.allUsers() : await db.allUsers();
     return res.json({ success: true, users });
   } catch (err) {
-    return res.status(500).json({ success: false, message: "Failed to fetch users." });
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch users." });
   }
 });
 
@@ -183,7 +189,8 @@ app.post("/api/login-vulnerable", async (req, res) => {
 
 app.post("/api/login-safe", async (req, res) => {
   const { username = "", password = "" } = req.body || {};
-  const generatedQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
+  const generatedQuery =
+    "SELECT * FROM users WHERE username = ? AND password = ?";
   const parameters = [username, password];
 
   // SAFE APPROACH:
@@ -219,9 +226,19 @@ app.post("/api/login", async (req, res) => {
   const { username = "", password = "" } = req.body || {};
 
   try {
+    // INTENTIONALLY VULNERABLE FOR EDUCATIONAL DEMO:
+    // This is active on purpose so the product login can also demonstrate bypass.
+    const vulnerableResult = isVercel
+      ? db.vulnerableLogin(username, password)
+      : await db.vulnerableLogin(username, password);
+    const row = vulnerableResult.row;
+
+    /*
+    // SECURE VERSION (uncomment this block and comment the vulnerable block above to secure login):
     const row = isVercel
       ? db.findByCredentials(username, password)
       : await db.findByCredentials(username, password);
+    */
 
     if (!row) {
       return res.status(401).json({

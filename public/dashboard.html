@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Dashboard</title>
+    <title>Dashboard | SQL Demo App</title>
     <link
       rel="stylesheet"
       href="/style.css"
@@ -14,28 +14,113 @@
   </head>
   <body>
     <main class="dashboard-page">
-      <header class="dashboard-topbar">
+      <header class="dashboard-topbar rich-topbar">
         <div>
-          <h1>Dashboard</h1>
+          <h1 id="dashboard-title">Dashboard</h1>
+          <p
+            id="dashboard-subtitle"
+            class="dashboard-subtitle"
+          >
+            Welcome back.
+          </p>
         </div>
-        <button
-          id="logout-btn"
-          class="ghost-btn"
-          type="button"
-        >
-          Log out
-        </button>
+        <div class="topbar-actions">
+          <button
+            id="logout-btn"
+            class="ghost-btn"
+            type="button"
+          >
+            Log out
+          </button>
+        </div>
       </header>
 
-      <section class="">
+      <section
+        class="dashboard-hero"
+        id="role-banner"
+      >
+        <div>
+          <p class="hero-label">Workspace</p>
+          <h2 id="hero-heading">Product Dashboard</h2>
+          <p id="hero-copy">Your activity and tools are ready.</p>
+        </div>
+        <span
+          id="role-pill"
+          class="role-pill"
+          >viewer</span
+        >
+      </section>
+
+      <section
+        class="kpi-grid"
+        id="kpi-grid"
+      ></section>
+
+      <section class="dashboard-layout-grid">
         <article class="dash-card">
-          <h2>Signed in user</h2>
-          <p id="welcome-line">Welcome.</p>
-          <pre
-            id="user-json"
-            class="code-light"
-          ></pre>
+          <h3>Recent Activity</h3>
+          <ul
+            id="activity-list"
+            class="activity-list"
+          ></ul>
         </article>
+
+        <article class="dash-card">
+          <h3>Quick Actions</h3>
+          <div
+            id="quick-actions"
+            class="quick-actions"
+          ></div>
+        </article>
+      </section>
+
+      <section
+        id="admin-section"
+        class="admin-section hidden"
+      >
+        <div class="admin-header">
+          <h2>Admin Control Center</h2>
+          <p>
+            Extra controls are visible because you are logged in as
+            administrator.
+          </p>
+        </div>
+
+        <div class="admin-grid">
+          <article class="dash-card admin-card">
+            <h3>User Management</h3>
+            <ul class="admin-list">
+              <li>Review all demo user roles</li>
+              <li>Audit recent sign-in attempts</li>
+              <li>Manage privileged access policies</li>
+            </ul>
+          </article>
+
+          <article class="dash-card admin-card">
+            <h3>System Health</h3>
+            <div class="status-row">
+              <span>API status</span>
+              <strong class="status-good">Healthy</strong>
+            </div>
+            <div class="status-row">
+              <span>Security alerts</span>
+              <strong class="status-warn">2 training alerts</strong>
+            </div>
+            <div class="status-row">
+              <span>Pending reviews</span>
+              <strong>5 items</strong>
+            </div>
+          </article>
+
+          <article class="dash-card admin-card admin-accent">
+            <h3>Admin Actions</h3>
+            <div class="quick-actions">
+              <button type="button">Run Security Drill</button>
+              <button type="button">Export Audit Log</button>
+              <button type="button">Rotate Demo Credentials</button>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
 

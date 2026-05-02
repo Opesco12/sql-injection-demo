@@ -32,13 +32,22 @@
           />
 
           <label for="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            autocomplete="off"
-          />
+          <div class="password-field">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              autocomplete="off"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              data-toggle-password
+              aria-label="Show password"
+              aria-pressed="false"
+            ><span class="icon-eye" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 5C6.5 5 2.1 8.4.5 12c1.6 3.6 6 7 11.5 7s9.9-3.4 11.5-7C21.9 8.4 17.5 5 12 5zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="12" cy="12" r="2"/></svg></span></button>
+          </div>
 
           <button
             type="submit"
